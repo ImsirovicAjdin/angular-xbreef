@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/observable/interval';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/observable/merge';
 import {Subject} from 'rxjs/Subject';
 
 @Component({
@@ -16,10 +17,19 @@ export class AppComponent  {
   clock;
 
   constructor(){
-    Observable.merge(); // (2) We can use Observable.merge() when we want 1 stream or another to update the same thing
+    /* (3) So we'll say this.click$, because Subject is a type of observable, and we'll say Observable.interval; so we're saying, 'let either one of these be able to map to a new Date'
+    Observable.merge(
+        this.click$,
+        Observable.interval(1000)
+    ).map(()=> new Date());
+    */
 
-    Observable.interval(1000); // (1) I do want my Observable interval always running; I do want it to update every second, but I also want my clicks to be updating
-    this.clock = this.click$.map(()=> new Date());  
+    // (4) and then I can take my clock and assign that to that new stream of merge
+    this.clock = Observable.merge(
+        this.click$,
+        Observable.interval(5000) // (5) and to show this off I'll change the interval to 5s
+    ).map(()=> new Date());
   }
-
+  // (6) so we have those 2 streams working for us, whenever I click -- (this.click$) --, or
+  // whenever 5s passes -- (Observable.interval(5000)) -- my clock will now update
 }
