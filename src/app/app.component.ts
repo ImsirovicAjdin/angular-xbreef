@@ -1,5 +1,3 @@
-// Hande click events with Subjects
-
 import { Component } from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/observable/interval';
@@ -14,14 +12,7 @@ import {Subject} from 'rxjs/Subject';
   `
 })
 export class AppComponent  {
-  /*
-  To resolve this for now, I'll create something called a 'Subject', and this will be a new Subject. 
-  What Subject will allow me to do is call .next every time I click the button.
-  And what .next is gonna do is basically push the stream forward 1 tick.
-  So if I just take out all of this clock stuff, which was just going every second before, and now I say, this.clock is this.click$, and I'm gonna map those clicks to a new Date.
-  */
   click$ = new Subject();
-
   clock;
 
   constructor(){
