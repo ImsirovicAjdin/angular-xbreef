@@ -16,6 +16,9 @@ export class AppComponent  {
   clock;
 
   constructor(){
+    Observable.merge(); // (2) We can use Observable.merge() when we want 1 stream or another to update the same thing
+
+    Observable.interval(1000); // (1) I do want my Observable interval always running; I do want it to update every second, but I also want my clicks to be updating
     this.clock = this.click$.map(()=> new Date());  
   }
 
